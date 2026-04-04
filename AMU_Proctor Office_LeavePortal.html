@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Leave Portal — Proctor's Office, AMU</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Serif:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1a3a6b;--navy-dark:#0f2347;--navy-mid:#1e4080;
+  --saffron:#f4841f;--saffron-light:#fef3e8;
+  --green-india:#138808;--green-light:#e8f5e9;
+  --white:#ffffff;--bg:#f0f4f8;--bg2:#e8edf3;
+  --text:#1a2332;--text2:#4a5568;--text3:#718096;
+  --border:#d1dae6;--border2:#b8c8db;
+  --shadow:0 2px 12px rgba(26,58,107,.10);
+  --shadow2:0 4px 24px rgba(26,58,107,.14);
+  --radius:6px;--radius2:10px;
+  --sidebar-w:245px;--header-h:72px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5}
+
+/* ══ SCREENS ══ */
+.screen{display:none}
+.screen.active{display:flex}
+
+/* ══ LOGIN ══ */
+#screen-login{min-height:100vh;background:var(--bg);flex-direction:row}
+.login-left{width:42%;background:var(--navy-dark);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem;position:relative;overflow:hidden}
+.login-left::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;background:rgba(244,132,31,.07);border-radius:50%}
+.login-left::after{content:'';position:absolute;bottom:-60px;left:-60px;width:240px;height:240px;background:rgba(255,255,255,.03);border-radius:50%}
+.amu-emblem{width:90px;height:90px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;box-shadow:0 4px 20px rgba(0,0,0,.3);position:relative;z-index:1}
+.amu-emblem svg{width:58px;height:58px}
+.login-left h2{color:#fff;font-size:20px;font-weight:700;text-align:center;margin-bottom:.3rem;position:relative;z-index:1;font-family:'Noto Serif',serif;letter-spacing:.2px}
+.login-left h3{color:rgba(255,255,255,.75);font-size:14px;font-weight:500;text-align:center;margin-bottom:.2rem;position:relative;z-index:1}
+.login-left p{color:rgba(255,255,255,.5);font-size:12px;text-align:center;position:relative;z-index:1;max-width:270px}
+.login-strip{width:100%;height:5px;background:linear-gradient(90deg,#ff9933 33.3%,#fff 33.3%,#fff 66.6%,#138808 66.6%);margin-top:1.75rem;position:relative;z-index:1;border-radius:3px}
+.login-features{margin-top:2rem;display:flex;flex-direction:column;gap:.65rem;width:100%;max-width:270px;position:relative;z-index:1}
+.lf-item{display:flex;align-items:center;gap:.65rem;color:rgba(255,255,255,.7);font-size:12.5px}
+.lf-dot{width:7px;height:7px;border-radius:50%;background:var(--saffron);flex-shrink:0}
+
+.login-right{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2rem}
+.login-box{width:100%;max-width:400px}
+.login-box h2{font-size:22px;font-weight:700;color:var(--navy-dark);margin-bottom:.3rem;font-family:'Noto Serif',serif}
+.login-box p{color:var(--text3);font-size:13px;margin-bottom:1.75rem}
+.flabel{font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px;display:block}
+.finput{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:'Noto Sans',sans-serif;background:#fff;color:var(--text);transition:border-color .2s,box-shadow .2s;margin-bottom:1rem}
+.finput:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(26,58,107,.08)}
+.btn-login{width:100%;padding:12px;background:var(--navy);color:#fff;border:none;border-radius:var(--radius);font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.3px;transition:background .2s;font-family:'Noto Sans',sans-serif}
+.btn-login:hover{background:var(--navy-mid)}
+.login-links{display:flex;justify-content:space-between;margin-top:1rem;font-size:12.5px}
+.login-links a{color:var(--navy);cursor:pointer;text-decoration:none}
+.login-links a:hover{text-decoration:underline}
+.login-footer-strip{text-align:center;margin-top:1.5rem;font-size:11.5px;color:var(--text3)}
+
+/* ══ FORGOT PASSWORD ══ */
+#screen-forgot{min-height:100vh;background:var(--bg);align-items:center;justify-content:center;flex-direction:column}
+.forgot-box{background:#fff;border:1px solid var(--border);border-radius:var(--radius2);padding:2.5rem;width:100%;max-width:440px;box-shadow:var(--shadow2)}
+.forgot-box h2{font-size:20px;font-weight:700;color:var(--navy-dark);margin-bottom:.3rem;font-family:'Noto Serif',serif}
+.forgot-box p{font-size:13px;color:var(--text3);margin-bottom:1.5rem}
+.step-indicator{display:flex;align-items:center;gap:.5rem;margin-bottom:1.5rem}
+.step{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid var(--border);color:var(--text3)}
+.step.done{background:var(--navy);border-color:var(--navy);color:#fff}
+.step.active{border-color:var(--saffron);color:var(--saffron)}
+.step-line{flex:1;height:2px;background:var(--border);border-radius:2px}
+.step-line.done{background:var(--navy)}
+.forgot-step{display:none}
+.forgot-step.active{display:block}
+.hint-text{font-size:12px;color:var(--text3);background:var(--bg);padding:.6rem .75rem;border-radius:var(--radius);margin-top:.25rem;border:1px solid var(--border)}
+.success-icon{width:60px;height:60px;background:#d1fae5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:28px}
+
+/* ══ PROCTOR PANEL ══ */
+#screen-admin{min-height:100vh;flex-direction:column}
+.admin-header{background:var(--navy-dark);padding:.85rem 1.5rem;display:flex;align-items:center;gap:1rem}
+.admin-header h1{color:#fff;font-size:16px;font-weight:700;font-family:'Noto Serif',serif}
+.admin-header p{color:rgba(255,255,255,.5);font-size:12px;margin-top:1px}
+.admin-body{flex:1;display:flex;gap:0}
+.admin-sidebar{width:220px;background:#fff;border-right:1px solid var(--border);flex-shrink:0}
+.admin-content{flex:1;padding:1.5rem;overflow-y:auto}
+.admin-nav-item{padding:10px 1.25rem;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;border-left:3px solid transparent;display:flex;align-items:center;gap:.6rem;transition:all .15s}
+.admin-nav-item:hover{background:var(--bg);color:var(--navy)}
+.admin-nav-item.active{background:#f0f4ff;border-left-color:var(--navy);color:var(--navy);font-weight:600}
+.admin-section{display:none}
+.admin-section.active{display:block}
+.admin-section-title{font-size:18px;font-weight:700;color:var(--navy-dark);margin-bottom:1rem;font-family:'Noto Serif',serif}
+
+/* ══ STAFF APP ══ */
+#screen-app{min-height:100vh;flex-direction:column}
+.top-header{height:var(--header-h);background:var(--navy-dark);display:flex;align-items:center;padding:0 1.5rem;gap:1rem;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.header-emblem{width:48px;height:48px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.header-emblem svg{width:32px;height:32px}
+.header-titles{flex:1}
+.header-titles h1{color:#fff;font-size:15px;font-weight:700;font-family:'Noto Serif',serif;line-height:1.2}
+.header-titles p{color:rgba(255,255,255,.5);font-size:11px;letter-spacing:.3px;text-transform:uppercase;margin-top:1px}
+.header-right{display:flex;align-items:center;gap:.75rem}
+.user-avatar{width:36px;height:36px;border-radius:50%;background:var(--saffron);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff}
+.user-name{color:rgba(255,255,255,.85);font-size:12.5px;font-weight:500}
+.btn-out{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:5px 12px;border-radius:var(--radius);cursor:pointer;transition:background .2s;font-family:'Noto Sans',sans-serif}
+.btn-out:hover{background:rgba(255,255,255,.18)}
+.sub-header{height:40px;background:var(--navy);display:flex;align-items:center;padding:0 1.5rem;gap:0;border-bottom:3px solid var(--saffron)}
+.sub-nav-btn{padding:0 16px;height:100%;border:none;background:none;color:rgba(255,255,255,.6);font-size:12.5px;font-weight:500;cursor:pointer;position:relative;transition:color .2s;font-family:'Noto Sans',sans-serif}
+.sub-nav-btn:hover{color:#fff}
+.sub-nav-btn.active{color:#fff;background:rgba(255,255,255,.1)}
+.sub-nav-btn.active::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:3px;background:var(--saffron)}
+.main-layout{display:flex;flex:1;overflow:hidden}
+.sidebar{width:var(--sidebar-w);background:#fff;border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.sidebar-profile{padding:1.25rem 1rem;border-bottom:1px solid var(--border);background:linear-gradient(135deg,var(--navy-dark),var(--navy-mid))}
+.sp-avatar{width:48px;height:48px;border-radius:50%;background:var(--saffron);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#fff;margin:0 auto 8px;border:3px solid rgba(255,255,255,.3)}
+.sp-name{text-align:center;font-size:13px;font-weight:600;color:#fff}
+.sp-role{text-align:center;font-size:11px;color:rgba(255,255,255,.6);margin-top:2px}
+.sp-id{text-align:center;font-size:11px;color:rgba(255,255,255,.45);margin-top:1px}
+.sidebar-section{padding:.75rem 0}
+.sidebar-section-title{padding:4px 1rem;font-size:10.5px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px}
+.sidebar-item{display:flex;align-items:center;gap:.65rem;padding:9px 1rem;cursor:pointer;transition:all .15s;border-left:3px solid transparent;color:var(--text2);font-size:13px;font-weight:500}
+.sidebar-item:hover{background:var(--bg);color:var(--navy)}
+.sidebar-item.active{background:linear-gradient(90deg,rgba(26,58,107,.08),transparent);border-left-color:var(--navy);color:var(--navy);font-weight:600}
+.si-icon{width:16px;height:16px;flex-shrink:0;opacity:.7}
+.sidebar-item.active .si-icon{opacity:1}
+.sidebar-divider{height:1px;background:var(--border);margin:.25rem 1rem}
+.badge-count{margin-left:auto;background:var(--saffron);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px}
+.notif-dot{width:7px;height:7px;border-radius:50%;background:#e53e3e;display:inline-block;margin-left:4px;vertical-align:middle}
+.content-area{flex:1;overflow-y:auto;padding:1.5rem}
+.page{display:none}
+.page.active{display:block}
+.page-header{margin-bottom:1.25rem}
+.page-title{font-size:20px;font-weight:700;color:var(--navy-dark);font-family:'Noto Serif',serif}
+.page-subtitle{font-size:13px;color:var(--text3);margin-top:3px}
+.breadcrumb{display:flex;align-items:center;gap:.4rem;font-size:12px;color:var(--text3);margin-bottom:.6rem}
+.breadcrumb b{color:var(--navy)}
+
+/* ══ SHARED COMPONENTS ══ */
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius2);padding:1.25rem;box-shadow:var(--shadow)}
+.card-head{font-size:14px;font-weight:700;color:var(--navy-dark);margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius2);padding:1rem 1.25rem;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.stat-card.blue::before{background:var(--navy)}
+.stat-card.orange::before{background:var(--saffron)}
+.stat-card.green::before{background:var(--green-india)}
+.stat-card.red::before{background:#c53030}
+.stat-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem}
+.stat-num{font-size:28px;font-weight:700;color:var(--navy-dark);line-height:1}
+.stat-sub{font-size:11px;color:var(--text3);margin-top:.3rem}
+.form-section{margin-bottom:1.5rem}
+.form-section-title{font-size:11.5px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem;padding-bottom:.3rem;border-bottom:2px solid var(--saffron);display:inline-block}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group.full{grid-column:1/-1}
+.req{color:#c53030;margin-left:2px}
+.fselect,.ftextarea{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:13.5px;font-family:'Noto Sans',sans-serif;background:#fff;color:var(--text);transition:border .2s,box-shadow .2s}
+.fselect:focus,.ftextarea:focus,.finput-sm:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(26,58,107,.08)}
+.finput-sm{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:13.5px;font-family:'Noto Sans',sans-serif;background:#fff;color:var(--text);transition:border .2s}
+.ftextarea{resize:vertical;min-height:80px}
+.finput-sm:disabled,.fselect:disabled{background:var(--bg);color:var(--text3)}
+.btn{padding:9px 20px;border-radius:var(--radius);font-size:13px;font-weight:600;cursor:pointer;transition:all .18s;border:1.5px solid;font-family:'Noto Sans',sans-serif;display:inline-flex;align-items:center;gap:.4rem}
+.btn-primary{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn-primary:hover{background:var(--navy-mid)}
+.btn-secondary{background:#fff;border-color:var(--border2);color:var(--text2)}
+.btn-secondary:hover{background:var(--bg)}
+.btn-success{background:var(--green-india);border-color:var(--green-india);color:#fff}
+.btn-success:hover{background:#0d6b06}
+.btn-danger{background:#c53030;border-color:#c53030;color:#fff}
+.btn-danger:hover{background:#9b2222}
+.btn-warning{background:#d97706;border-color:#d97706;color:#fff}
+.btn-warning:hover{background:#b45309}
+.btn-print{background:var(--navy-mid);border-color:var(--navy-mid);color:#fff;font-size:12px;padding:6px 14px}
+.btn-sm{padding:5px 12px;font-size:12px}
+.btn-row{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
+table.data-table{width:100%;border-collapse:collapse;font-size:13px}
+table.data-table thead tr{background:var(--navy-dark)}
+table.data-table thead th{padding:10px 12px;font-size:11px;font-weight:600;color:rgba(255,255,255,.9);text-align:left;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+table.data-table tbody tr{border-bottom:1px solid var(--border);transition:background .15s}
+table.data-table tbody tr:last-child{border-bottom:none}
+table.data-table tbody tr:hover{background:#f5f8fc}
+table.data-table tbody td{padding:11px 12px;color:var(--text);vertical-align:middle}
+.td-muted{color:var(--text3);font-size:12px}
+.pill{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.pill-pending{background:#fef3c7;color:#92400e}
+.pill-approved{background:#d1fae5;color:#065f46}
+.pill-rejected{background:#fee2e2;color:#991b1b}
+.pill-day{background:#dbeafe;color:#1e40af}
+.pill-eve{background:#fef3c7;color:#92400e}
+.pill-night{background:#ede9fe;color:#4c1d95}
+.filter-bar{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1rem;padding:.75rem 1rem;background:var(--bg);border-radius:var(--radius);border:1px solid var(--border)}
+.filt-sel{padding:6px 10px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:12.5px;font-family:'Noto Sans',sans-serif;background:#fff;color:var(--text);min-width:120px}
+.filt-sel:focus{outline:none;border-color:var(--navy)}
+.balance-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
+.bal-item{background:var(--bg);border-radius:var(--radius);padding:.9rem 1rem;border:1px solid var(--border)}
+.bal-type{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.4rem}
+.bal-remaining{font-size:22px;font-weight:700;color:var(--navy-dark)}
+.bal-bar{height:5px;border-radius:3px;background:var(--border);overflow:hidden;margin-top:.5rem}
+.bal-fill{height:100%;border-radius:3px;background:var(--navy)}
+.bal-meta{display:flex;justify-content:space-between;font-size:10.5px;color:var(--text3);margin-top:3px}
+.info-box{background:var(--saffron-light);border:1px solid #fcd9a0;border-radius:var(--radius);padding:.75rem 1rem;font-size:12.5px;color:#7c4a00;display:flex;align-items:flex-start;gap:.5rem;margin-bottom:1rem}
+.shift-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
+.shift-card{border-radius:var(--radius2);padding:1rem 1.25rem;border:1.5px solid;position:relative}
+.shift-card.day{border-color:#bfdbfe;background:#eff6ff}
+.shift-card.eve{border-color:#fed7aa;background:#fff7ed}
+.shift-card.night{border-color:#c4b5fd;background:#f5f3ff}
+.sc-icon{font-size:22px;margin-bottom:.3rem}
+.sc-name{font-size:13px;font-weight:700;color:var(--text)}
+.sc-time{font-size:12px;color:var(--text3);margin-top:2px}
+.sc-count{position:absolute;top:1rem;right:1rem;font-size:18px;font-weight:700;color:var(--text2);opacity:.35}
+
+/* Print slip */
+.overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.55);z-index:1000;align-items:center;justify-content:center}
+.overlay.show{display:flex}
+.slip-modal{background:#fff;border-radius:var(--radius2);width:620px;max-width:95vw;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.slip-tricolor{height:5px;background:linear-gradient(90deg,#ff9933 33.3%,#fff 33.3%,#fff 66.6%,#138808 66.6%)}
+.slip-head-inner{background:var(--navy-dark);padding:1.1rem 1.5rem;display:flex;align-items:center;gap:1rem}
+.slip-emblem-sm{width:48px;height:48px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.slip-body{padding:1.25rem 1.5rem;max-height:70vh;overflow-y:auto}
+.slip-sec{margin-bottom:1rem}
+.slip-sec-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--navy);margin-bottom:.6rem;padding-bottom:.3rem;border-bottom:2px solid var(--saffron);display:inline-block}
+.slip-grid2{display:grid;grid-template-columns:1fr 1fr;gap:.4rem .75rem}
+.slip-field{display:flex;flex-direction:column;gap:2px}
+.slip-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--text3)}
+.slip-val{font-size:13px;font-weight:600;color:var(--text)}
+.slip-reason-box{background:var(--bg);padding:.6rem .75rem;border-radius:var(--radius);font-size:13px;color:var(--text);margin-top:.4rem}
+.sig-row{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;margin-top:.5rem}
+.sig-box{padding-top:1.75rem;border-top:1.5px solid var(--border);text-align:center;font-size:9.5px;color:var(--text3);line-height:1.5}
+.slip-footer-bar{background:var(--bg);padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border)}
+
+/* Toast */
+.toast{position:fixed;bottom:2rem;right:2rem;padding:.75rem 1.25rem;border-radius:var(--radius);font-size:13.5px;font-weight:500;z-index:9999;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none;box-shadow:var(--shadow2)}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.success{background:#065f46;color:#d1fae5}
+.toast.error{background:#991b1b;color:#fee2e2}
+.toast.info{background:var(--navy);color:#dbeafe}
+
+/* Password eye toggle */
+.pw-wrap{position:relative;margin-bottom:1rem}
+.pw-wrap .finput{margin-bottom:0}
+.pw-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:16px;padding:2px}
+
+/* Tag */
+.role-tag{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10.5px;font-weight:600;background:#dbeafe;color:#1e40af}
+.role-tag.manager{background:#d1fae5;color:#065f46}
+.role-tag.admin{background:#ede9fe;color:#4c1d95}
+
+@media(max-width:700px){
+  .stats-row,.balance-grid,.shift-cards{grid-template-columns:1fr 1fr}
+  .form-grid,.form-grid-3{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .login-left{display:none}
+  .login-right{padding:2rem 1rem}
+}
+@media print{
+  body>*{visibility:hidden}
+  .overlay,  .overlay *{visibility:visible}
+  .overlay{position:fixed;top:0;left:0;width:100%;background:none;display:block}
+  .slip-modal{width:100%;box-shadow:none;border-radius:0}
+  .slip-footer-bar .btn-row{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ LOGIN SCREEN ══════════════ -->
+<div id="screen-login" class="screen active">
+  <div class="login-left">
+    <div class="amu-emblem">
+      <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="50" fill="#f0f4f8" stroke="#1a3a6b" stroke-width="2.5"/>
+        <circle cx="60" cy="60" r="38" fill="none" stroke="#1a3a6b" stroke-width="2"/>
+        <circle cx="60" cy="60" r="7" fill="#1a3a6b"/>
+        <line x1="60" y1="22" x2="60" y2="98" stroke="#1a3a6b" stroke-width="1.5" opacity=".35"/>
+        <line x1="22" y1="60" x2="98" y2="60" stroke="#1a3a6b" stroke-width="1.5" opacity=".35"/>
+        <line x1="33" y1="33" x2="87" y2="87" stroke="#1a3a6b" stroke-width="1" opacity=".2"/>
+        <line x1="87" y1="33" x2="33" y2="87" stroke="#1a3a6b" stroke-width="1" opacity=".2"/>
+        <path d="M60 22 L75 40 L95 40 L80 55 L87 75 L60 62 L33 75 L40 55 L25 40 L45 40 Z" fill="none" stroke="#1a3a6b" stroke-width="1.5" opacity=".25"/>
+        <text x="60" y="67" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a3a6b" font-family="serif">AMU</text>
+      </svg>
+    </div>
+    <h2>Proctor's Office</h2>
+    <h3>Aligarh Muslim University</h3>
+    <p>Security Leave Management Portal</p>
+    <div class="login-strip"></div>
+    <div class="login-features">
+      <div class="lf-item"><span class="lf-dot"></span>Personal Staff Login & Account</div>
+      <div class="lf-item"><span class="lf-dot"></span>Apply & Track Leave Requests</div>
+      <div class="lf-item"><span class="lf-dot"></span>Shift-wise Leave Management</div>
+      <div class="lf-item"><span class="lf-dot"></span>Digital Approval Workflow</div>
+      <div class="lf-item"><span class="lf-dot"></span>Printable Official Leave Slips</div>
+    </div>
+  </div>
+  <div class="login-right">
+    <div class="login-box">
+      <h2>Sign In to Portal</h2>
+      <p>Use your Employee ID and password to access your account</p>
+      <label class="flabel">Employee ID</label>
+      <input class="finput" id="li-id" placeholder="e.g. SEC-0011" autocomplete="username">
+      <label class="flabel">Password</label>
+      <div class="pw-wrap">
+        <input class="finput" type="password" id="li-pw" placeholder="Enter your password" autocomplete="current-password">
+        <button class="pw-eye" type="button" onclick="togglePw('li-pw',this)">👁</button>
+      </div>
+      <button class="btn-login" onclick="doLogin()">Sign In</button>
+      <div class="login-links">
+        <a onclick="showForgot()">Forgot Password?</a>
+        <a onclick="showProctor()">Proctor Login →</a>
+      </div>
+      <div class="login-footer-strip">Proctor's Office, AMU &nbsp;|&nbsp; Security Department Portal<br>Helpdesk: <a href="mailto:proctor.amu@amu.ac.in" style="color:var(--navy)">proctor.amu@amu.ac.in</a> &nbsp;|&nbsp; <a href="https://www.amu.ac.in" target="_blank" style="color:var(--navy)">www.amu.ac.in</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ FORGOT PASSWORD ══════════════ -->
+<div id="screen-forgot" class="screen">
+  <div class="forgot-box">
+    <h2>Reset Password</h2>
+    <p>Verify your identity to reset your account password</p>
+    <div class="step-indicator" id="fp-steps">
+      <div class="step active" id="fp-s1">1</div>
+      <div class="step-line" id="fp-l1"></div>
+      <div class="step" id="fp-s2">2</div>
+      <div class="step-line" id="fp-l2"></div>
+      <div class="step" id="fp-s3">3</div>
+    </div>
+
+    <!-- Step 1: Verify ID -->
+    <div class="forgot-step active" id="fp-step1">
+      <label class="flabel">Employee ID <span class="req">*</span></label>
+      <input class="finput" id="fp-id" placeholder="Enter your Employee ID">
+      <div class="hint-text" id="fp-hint1" style="display:none"></div>
+      <div style="margin-top:1rem;display:flex;gap:.75rem">
+        <button class="btn btn-secondary" onclick="showLogin()">← Back to Login</button>
+        <button class="btn btn-primary" onclick="fpStep1()">Verify ID</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Security question / DOB -->
+    <div class="forgot-step" id="fp-step2">
+      <p style="font-size:13px;color:var(--text3);margin-bottom:1rem">Answer the security question for your account:</p>
+      <label class="flabel" id="fp-q-label">Security Question</label>
+      <input class="finput" id="fp-answer" placeholder="Your answer">
+      <div style="margin-top:1rem;display:flex;gap:.75rem">
+        <button class="btn btn-secondary" onclick="fpBack(1)">← Back</button>
+        <button class="btn btn-primary" onclick="fpStep2()">Verify Answer</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Set new password -->
+    <div class="forgot-step" id="fp-step3">
+      <label class="flabel">New Password <span class="req">*</span></label>
+      <div class="pw-wrap"><input class="finput" type="password" id="fp-pw1" placeholder="Minimum 6 characters"><button class="pw-eye" type="button" onclick="togglePw('fp-pw1',this)">👁</button></div>
+      <label class="flabel">Confirm New Password <span class="req">*</span></label>
+      <div class="pw-wrap"><input class="finput" type="password" id="fp-pw2" placeholder="Re-enter password"><button class="pw-eye" type="button" onclick="togglePw('fp-pw2',this)">👁</button></div>
+      <div style="margin-top:1rem;display:flex;gap:.75rem">
+        <button class="btn btn-secondary" onclick="fpBack(2)">← Back</button>
+        <button class="btn btn-primary" onclick="fpStep3()">Reset Password</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Success -->
+    <div class="forgot-step" id="fp-step4">
+      <div class="success-icon">✅</div>
+      <p style="text-align:center;font-size:14px;font-weight:600;color:var(--navy-dark);margin-bottom:.5rem">Password Reset Successful!</p>
+      <p style="text-align:center;font-size:13px;color:var(--text3);margin-bottom:1.5rem">Your password has been updated. You can now sign in with your new password.</p>
+      <button class="btn btn-primary" style="width:100%" onclick="showLogin()">Go to Login</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PROCTOR PANEL ══════════════ -->
+<div id="screen-admin" class="screen">
+  <div class="admin-header">
+    <div>
+      <h1>Proctor's Panel — Proctor's Office, AMU</h1>
+      <p>Manage staff accounts, roles and leave approvals</p>
+    </div>
+    <div style="margin-left:auto;display:flex;gap:.75rem;align-items:center">
+      <span id="admin-user-label" style="color:rgba(255,255,255,.7);font-size:13px"></span>
+      <button class="btn-out" onclick="doLogout()">Sign Out</button>
+    </div>
+  </div>
+  <div class="admin-body">
+    <div class="admin-sidebar">
+      <div style="padding:.75rem 0">
+        <div class="admin-nav-item active" onclick="adminTab('accounts',this)">👤 Staff Accounts</div>
+        <div class="admin-nav-item" onclick="adminTab('add-staff',this)">➕ Add New Staff</div>
+        <div class="admin-nav-item" onclick="adminTab('all-leaves',this)">📋 All Leave Records</div>
+        <div class="admin-nav-item" onclick="adminTab('approvals',this)">✅ Pending Approvals <span id="admin-notif" class="badge-count" style="margin-left:6px">0</span></div>
+        <div class="admin-nav-item" onclick="adminTab('shifts',this)">🕐 Shift Info</div>
+      </div>
+    </div>
+    <div class="admin-content">
+
+      <!-- Staff Accounts -->
+      <div class="admin-section active" id="admin-accounts">
+        <div class="admin-section-title">Staff Accounts</div>
+        <div class="card" style="padding:0"><div class="table-wrap" id="accounts-table"></div></div>
+      </div>
+
+      <!-- Add New Staff -->
+      <div class="admin-section" id="admin-add-staff">
+        <div class="admin-section-title" id="add-staff-title">Add New Staff Account</div>
+        <div class="card">
+          <div class="form-section">
+            <div class="form-section-title">Personal Information</div>
+            <div class="form-grid">
+              <div class="form-group"><label class="flabel">Full Name <span class="req">*</span></label><input class="finput-sm" id="as-name" placeholder="Full name"></div>
+              <div class="form-group"><label class="flabel">Employee ID <span class="req">*</span></label><input class="finput-sm" id="as-id" placeholder="e.g. SEC-0042"></div>
+              <div class="form-group">
+                <label class="flabel">Designation <span class="req">*</span></label>
+                <select class="fselect" id="as-des">
+                  <option value="">— Select —</option>
+                  <option value="Security Officer">01. Security Officer</option>
+                  <option value="Security Inspector">02. Security Inspector</option>
+                  <option value="Security Supervisor">03. Security Supervisor</option>
+                  <option value="Security Assistant">04. Security Assistant</option>
+                  <option value="MTS (Security Guard)">05. MTS (Security Guard)</option>
+                  <option value="Daily Wager (Security Guard)">06. Daily Wager (Security Guard)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="flabel">Shift <span class="req">*</span></label>
+                <select class="fselect" id="as-shift">
+                  <option value="">— Select —</option>
+                  <option value="Day">☀ Day — 08:00 AM to 04:00 PM</option>
+                  <option value="Evening">🌆 Evening — 04:00 PM to 12:00 MN</option>
+                  <option value="Night">🌙 Night — 12:00 MN to 08:00 AM</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="flabel">Role <span class="req">*</span></label>
+                <select class="fselect" id="as-role">
+                  <option value="staff">Staff (Apply Leave Only)</option>
+                  </select>
+              </div>
+              <div class="form-group"><label class="flabel">Contact Number</label><input class="finput-sm" id="as-contact" placeholder="Mobile number"></div>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title">Login Credentials</div>
+            <div class="form-grid">
+              <div class="form-group"><label class="flabel">Username <span class="req">*</span></label><input class="finput-sm" id="as-username" placeholder="Login username (auto = Employee ID)"></div>
+              <div class="form-group">
+                <label class="flabel">Password <span class="req">*</span></label>
+                <div class="pw-wrap" style="margin-bottom:0"><input class="finput-sm" type="password" id="as-pw" placeholder="Set password"><button class="pw-eye" type="button" onclick="togglePw('as-pw',this)">👁</button></div>
+              </div>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title">Password Recovery</div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="flabel">Security Question <span class="req">*</span></label>
+                <select class="fselect" id="as-sq">
+                  <option value="">— Select Question —</option>
+                  <option value="What is your mother's maiden name?">Mother's maiden name?</option>
+                  <option value="What is the name of your first school?">Name of first school?</option>
+                  <option value="What is your date of birth? (DD/MM/YYYY)">Date of birth? (DD/MM/YYYY)</option>
+                  <option value="What is your place of birth?">Place of birth?</option>
+                  <option value="What is your father's name?">Father's name?</option>
+                </select>
+              </div>
+              <div class="form-group"><label class="flabel">Security Answer <span class="req">*</span></label><input class="finput-sm" id="as-sa" placeholder="Answer (case-insensitive)"></div>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title">Leave Entitlements</div>
+            <div class="form-grid-3">
+              <div class="form-group"><label class="flabel">Casual Leave (days)</label><input class="finput-sm" type="number" id="as-cl" value="12" min="0"></div>
+              <div class="form-group"><label class="flabel">Sick Leave (days)</label><input class="finput-sm" type="number" id="as-sl" value="10" min="0"></div>
+              <div class="form-group"><label class="flabel">Annual Leave (days)</label><input class="finput-sm" type="number" id="as-al" value="20" min="0"></div>
+            </div>
+          </div>
+          <div class="btn-row" style="justify-content:flex-end;padding-top:.5rem;border-top:1px solid var(--border)">
+            <button class="btn btn-secondary" onclick="cancelEditStaff()">Cancel</button>
+            <button class="btn btn-primary" id="as-submit-btn" onclick="saveStaff()">Create Account</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- All Leaves -->
+      <div class="admin-section" id="admin-all-leaves">
+        <div class="admin-section-title">All Leave Records</div>
+        <div class="filter-bar">
+          <label>Status:</label>
+          <select class="filt-sel" id="al-status" onchange="renderAdminLeaves()"><option value="all">All</option><option>Pending</option><option>Approved</option><option>Rejected</option></select>
+          <label>Shift:</label>
+          <select class="filt-sel" id="al-shift" onchange="renderAdminLeaves()"><option value="all">All Shifts</option><option value="Day">Day</option><option value="Evening">Evening</option><option value="Night">Night</option></select>
+        </div>
+        <div class="card" style="padding:0"><div class="table-wrap" id="admin-leaves-table"></div></div>
+      </div>
+
+      <!-- Approvals -->
+      <div class="admin-section" id="admin-approvals">
+        <div class="admin-section-title">Pending Approvals</div>
+        <div class="card" style="padding:0"><div class="table-wrap" id="admin-approvals-table"></div></div>
+      </div>
+
+      <!-- Shifts -->
+      <div class="admin-section" id="admin-shifts">
+        <div class="admin-section-title">Shift Information</div>
+        <div class="shift-cards">
+          <div class="shift-card day"><div class="sc-icon">☀</div><div class="sc-name">Day Shift</div><div class="sc-time">08:00 AM – 04:00 PM</div><div class="sc-count" id="asc-day">0</div></div>
+          <div class="shift-card eve"><div class="sc-icon">🌆</div><div class="sc-name">Evening Shift</div><div class="sc-time">04:00 PM – 12:00 MN</div><div class="sc-count" id="asc-eve">0</div></div>
+          <div class="shift-card night"><div class="sc-icon">🌙</div><div class="sc-name">Night Shift</div><div class="sc-time">12:00 MN – 08:00 AM</div><div class="sc-count" id="asc-night">0</div></div>
+        </div>
+        <div class="card" style="padding:0"><div class="table-wrap" id="admin-shift-table"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ STAFF APP ══════════════ -->
+<div id="screen-app" class="screen">
+  <div class="top-header">
+    <div class="header-emblem">
+      <svg viewBox="0 0 120 120" fill="none">
+        <circle cx="60" cy="60" r="38" fill="none" stroke="#1a3a6b" stroke-width="2.5"/>
+        <circle cx="60" cy="60" r="7" fill="#1a3a6b"/>
+        <line x1="60" y1="22" x2="60" y2="98" stroke="#1a3a6b" stroke-width="1.5" opacity=".3"/>
+        <line x1="22" y1="60" x2="98" y2="60" stroke="#1a3a6b" stroke-width="1.5" opacity=".3"/>
+        <path d="M60 22 L75 40 L95 40 L80 55 L87 75 L60 62 L33 75 L40 55 L25 40 L45 40 Z" fill="none" stroke="#1a3a6b" stroke-width="1.5" opacity=".25"/>
+        <text x="60" y="67" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a6b" font-family="serif">AMU</text>
+      </svg>
+    </div>
+    <div class="header-titles">
+      <h1>Security Leave Management Portal</h1>
+      <p>Proctor's Office, Aligarh Muslim University</p>
+    </div>
+    <div class="header-right">
+      <div class="user-avatar" id="hdr-avatar">RK</div>
+      <div class="user-name" id="hdr-name">Ramesh Kumar</div>
+      <button class="btn-out" onclick="doLogout()">Sign Out</button>
+    </div>
+  </div>
+  <div class="sub-header">
+    <button class="sub-nav-btn active" onclick="gotoPage('dashboard',this)">Dashboard</button>
+    <button class="sub-nav-btn" onclick="gotoPage('apply',this)">Apply Leave</button>
+    <button class="sub-nav-btn" onclick="gotoPage('history',this)">My Leaves</button>
+    <button class="sub-nav-btn" onclick="gotoPage('approvals',this)" id="app-approval-btn" style="display:none">Approvals <span class="notif-dot" id="app-notif-dot"></span></button>
+    <button class="sub-nav-btn" onclick="gotoPage('balance',this)">Leave Balance</button>
+    <button class="sub-nav-btn" onclick="gotoPage('shifts',this)">Shift Info</button>
+    <button class="sub-nav-btn" onclick="gotoPage('changepass',this)">Change Password</button>
+  </div>
+  <div class="main-layout">
+    <div class="sidebar">
+      <div class="sidebar-profile">
+        <div class="sp-avatar" id="sb-avatar">RK</div>
+        <div class="sp-name" id="sb-name">Ramesh Kumar</div>
+        <div class="sp-role" id="sb-role">Security Officer</div>
+        <div class="sp-id" id="sb-id">SEC-0011</div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Navigation</div>
+        <div class="sidebar-item active" onclick="gotoPage('dashboard',null,this)"><svg class="si-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>Dashboard</div>
+        <div class="sidebar-item" onclick="gotoPage('apply',null,this)"><svg class="si-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>Apply for Leave</div>
+        <div class="sidebar-item" onclick="gotoPage('history',null,this)"><svg class="si-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2"/></svg>My Leaves</div>
+        <div class="sidebar-item" onclick="gotoPage('approvals',null,this)" id="sb-approval-item" style="display:none"><svg class="si-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Approvals<span class="badge-count" id="sb-badge">0</span></div>
+        <div class="sidebar-item" onclick="gotoPage('balance',null,this)"><svg class="si-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10"/></svg>Leave Balance</div>
+        <div class="sidebar-item" onclick="gotoPage('shifts',null,this)"><svg class="si-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Shift Info</div>
+      </div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Account</div>
+        <div class="sidebar-item" onclick="gotoPage('changepass',null,this)"><svg class="si-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>Change Password</div>
+      </div>
+    </div>
+    <div class="content-area">
+
+      <!-- DASHBOARD -->
+      <div class="page active" id="page-dashboard">
+        <div class="breadcrumb">Home › <b>Dashboard</b></div>
+        <div class="page-header"><div class="page-title" id="dash-welcome">Welcome Back</div><div class="page-subtitle">Proctor's Office Security Leave Portal</div></div>
+        <div class="stats-row">
+          <div class="stat-card blue"><div class="stat-label">Total Applied</div><div class="stat-num" id="st-total">0</div><div class="stat-sub">This year</div></div>
+          <div class="stat-card orange"><div class="stat-label">Pending</div><div class="stat-num" id="st-pending">0</div><div class="stat-sub">Awaiting approval</div></div>
+          <div class="stat-card green"><div class="stat-label">Approved</div><div class="stat-num" id="st-approved">0</div><div class="stat-sub">This year</div></div>
+          <div class="stat-card red"><div class="stat-label">Rejected</div><div class="stat-num" id="st-rejected">0</div><div class="stat-sub">This year</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem">
+          <div class="card"><div class="card-head">Recent Applications</div><div id="dash-recent"></div></div>
+          <div class="card"><div class="card-head">Leave Balance</div><div id="dash-balance"></div></div>
+        </div>
+      </div>
+
+      <!-- APPLY -->
+      <div class="page" id="page-apply">
+        <div class="breadcrumb">Home › <b>Apply for Leave</b></div>
+        <div class="page-header"><div class="page-title">Leave Application Form</div><div class="page-subtitle">Submit a new leave request</div></div>
+        <div class="info-box">ℹ️ &nbsp;Fields marked <strong>*</strong> are mandatory. Applications must be submitted at least 24 hours in advance for planned leaves.</div>
+        <div class="card">
+          <div class="form-section">
+            <div class="form-section-title">Employee Details</div>
+            <div class="form-grid">
+              <div class="form-group"><label class="flabel">Employee Name <span class="req">*</span></label><input class="finput-sm" id="f-name" placeholder="Full name"></div>
+              <div class="form-group"><label class="flabel">Employee ID <span class="req">*</span></label><input class="finput-sm" id="f-id" placeholder="Employee ID"></div>
+              <div class="form-group"><label class="flabel">Designation</label><input class="finput-sm" id="f-des" disabled></div>
+              <div class="form-group"><label class="flabel">Assigned Shift</label><input class="finput-sm" id="f-shift-disp" disabled></div>
+              <div class="form-group"><label class="flabel">Reporting Supervisor <span class="req">*</span></label><input class="finput-sm" id="f-sup" placeholder="Supervisor name"></div>
+              <div class="form-group"><label class="flabel">Contact During Leave</label><input class="finput-sm" id="f-contact" placeholder="Mobile number"></div>
+            </div>
+          </div>
+          <div class="form-section">
+            <div class="form-section-title">Leave Details</div>
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label class="flabel">Leave Type <span class="req">*</span></label>
+                <select class="fselect" id="f-type"><option value="">— Select —</option><option>Casual Leave</option><option>Sick Leave</option><option>Annual Leave</option><option>Emergency Leave</option><option>Compensatory Off</option></select>
+              </div>
+              <div class="form-group"><label class="flabel">From Date <span class="req">*</span></label><input class="finput-sm" type="date" id="f-from" oninput="calcDays()"></div>
+              <div class="form-group"><label class="flabel">To Date <span class="req">*</span></label><input class="finput-sm" type="date" id="f-to" oninput="calcDays()"></div>
+            </div>
+            <div class="form-grid" style="margin-top:1rem">
+              <div class="form-group"><label class="flabel">Replacement Staff</label><input class="finput-sm" id="f-replace" placeholder="Name of covering guard (optional)"></div>
+              <div class="form-group"><label class="flabel">Number of Days</label><input class="finput-sm" id="f-days" disabled placeholder="Auto-calculated"></div>
+            </div>
+            <div class="form-group full" style="margin-top:1rem"><label class="flabel">Reason for Leave <span class="req">*</span></label><textarea class="ftextarea" id="f-reason" placeholder="Briefly describe the reason..."></textarea></div>
+          </div>
+          <div class="btn-row" style="justify-content:flex-end;padding-top:.5rem;border-top:1px solid var(--border)">
+            <button class="btn btn-secondary" onclick="clearApplyForm()">Clear</button>
+            <button class="btn btn-primary" onclick="submitLeave()">Submit Application</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- HISTORY -->
+      <div class="page" id="page-history">
+        <div class="breadcrumb">Home › <b>My Leave History</b></div>
+        <div class="page-header"><div class="page-title">My Leave History</div><div class="page-subtitle">All leave applications you have submitted</div></div>
+        <div class="filter-bar">
+          <label>Status:</label>
+          <select class="filt-sel" id="hf-status" onchange="renderHistory()"><option value="all">All</option><option>Pending</option><option>Approved</option><option>Rejected</option></select>
+          <label>Type:</label>
+          <select class="filt-sel" id="hf-type" onchange="renderHistory()"><option value="all">All Types</option><option>Casual Leave</option><option>Sick Leave</option><option>Annual Leave</option><option>Emergency Leave</option><option>Compensatory Off</option></select>
+        </div>
+        <div class="card" style="padding:0"><div class="table-wrap" id="history-table"></div></div>
+      </div>
+
+      <!-- APPROVALS (proctor) -->
+      <div class="page" id="page-approvals">
+        <div class="breadcrumb">Home › <b>Pending Approvals</b></div>
+        <div class="page-header"><div class="page-title">Leave Approvals</div><div class="page-subtitle">Review and action pending leave requests</div></div>
+        <div class="card" style="padding:0"><div class="table-wrap" id="approvals-table"></div></div>
+      </div>
+
+      <!-- BALANCE -->
+      <div class="page" id="page-balance">
+        <div class="breadcrumb">Home › <b>Leave Balance</b></div>
+        <div class="page-header"><div class="page-title">Leave Balance</div><div class="page-subtitle">Your leave entitlement and usage</div></div>
+        <div id="balance-content"></div>
+      </div>
+
+      <!-- SHIFTS -->
+      <div class="page" id="page-shifts">
+        <div class="breadcrumb">Home › <b>Shift Information</b></div>
+        <div class="page-header"><div class="page-title">Shift Information</div><div class="page-subtitle">Security department shift schedule</div></div>
+        <div class="shift-cards">
+          <div class="shift-card day"><div class="sc-icon">☀</div><div class="sc-name">Day Shift</div><div class="sc-time">08:00 AM – 04:00 PM</div><div class="sc-count" id="sc-day">0</div></div>
+          <div class="shift-card eve"><div class="sc-icon">🌆</div><div class="sc-name">Evening Shift</div><div class="sc-time">04:00 PM – 12:00 MN</div><div class="sc-count" id="sc-eve">0</div></div>
+          <div class="shift-card night"><div class="sc-icon">🌙</div><div class="sc-name">Night Shift</div><div class="sc-time">12:00 MN – 08:00 AM</div><div class="sc-count" id="sc-night">0</div></div>
+        </div>
+        <div class="card" style="padding:0"><div class="table-wrap" id="shift-table"></div></div>
+      </div>
+
+      <!-- CHANGE PASSWORD -->
+      <div class="page" id="page-changepass">
+        <div class="breadcrumb">Home › <b>Change Password</b></div>
+        <div class="page-header"><div class="page-title">Change Password</div><div class="page-subtitle">Update your account password</div></div>
+        <div class="card" style="max-width:450px">
+          <div class="form-group" style="margin-bottom:1rem"><label class="flabel">Current Password <span class="req">*</span></label><div class="pw-wrap" style="margin-bottom:0"><input class="finput-sm" type="password" id="cp-old" placeholder="Current password"><button class="pw-eye" type="button" onclick="togglePw('cp-old',this)">👁</button></div></div>
+          <div class="form-group" style="margin-bottom:1rem"><label class="flabel">New Password <span class="req">*</span></label><div class="pw-wrap" style="margin-bottom:0"><input class="finput-sm" type="password" id="cp-new1" placeholder="Minimum 6 characters"><button class="pw-eye" type="button" onclick="togglePw('cp-new1',this)">👁</button></div></div>
+          <div class="form-group" style="margin-bottom:1.5rem"><label class="flabel">Confirm New Password <span class="req">*</span></label><div class="pw-wrap" style="margin-bottom:0"><input class="finput-sm" type="password" id="cp-new2" placeholder="Re-enter new password"><button class="pw-eye" type="button" onclick="togglePw('cp-new2',this)">👁</button></div></div>
+          <button class="btn btn-primary" onclick="changePassword()">Update Password</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Print Slip Overlay -->
+<div class="overlay" id="overlay" onclick="closeSlipOutside(event)">
+  <div class="slip-modal">
+    <div class="slip-tricolor"></div>
+    <div class="slip-head-inner">
+      <div class="slip-emblem-sm">
+        <svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="60" r="38" fill="none" stroke="#1a3a6b" stroke-width="2.5"/><circle cx="60" cy="60" r="7" fill="#1a3a6b"/><text x="60" y="67" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a6b" font-family="serif">AMU</text></svg>
+      </div>
+      <div>
+        <div style="color:#fff;font-size:14px;font-weight:700;font-family:'Noto Serif',serif">Proctor's Office, AMU</div>
+        <div style="color:rgba(255,255,255,.55);font-size:11px;margin-top:1px">Security Department — Leave Application Slip</div>
+      </div>
+      <div style="margin-left:auto;text-align:right">
+        <div style="color:#fff;font-size:12px;font-weight:600" id="slip-ref-no">Ref: LVE-0001</div>
+        <div style="color:rgba(255,255,255,.5);font-size:11px;margin-top:2px" id="slip-ref-date">—</div>
+        <div style="margin-top:4px" id="slip-status-pill"></div>
+      </div>
+    </div>
+    <div class="slip-body" id="slip-body"></div>
+    <div class="slip-footer-bar">
+      <div style="font-size:11px;color:var(--text3)">Proctor's Office, AMU &nbsp;|&nbsp; <a href="https://www.amu.ac.in" target="_blank" style="color:var(--navy);text-decoration:none">www.amu.ac.in</a></div>
+      <div class="btn-row">
+        <button class="btn btn-secondary btn-sm" onclick="closeOverlay()">Close</button>
+        <button class="btn btn-primary btn-sm" onclick="window.print()">🖨 Print Slip</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════ DATA ══════
+const SHIFTS = {
+  Day:     {label:'Day Shift',    time:'08:00 AM – 04:00 PM', icon:'☀'},
+  Evening: {label:'Evening Shift',time:'04:00 PM – 12:00 MN', icon:'🌆'},
+  Night:   {label:'Night Shift',  time:'12:00 MN – 08:00 AM', icon:'🌙'}
+};
+const DESIGNATIONS=['Security Officer','Security Inspector','Security Supervisor','Security Assistant','MTS (Security Guard)','Daily Wager (Security Guard)'];
+
+// Staff accounts (username -> account object)
+let staffAccounts = {
+  'SEC-0011': {id:'SEC-0011',username:'SEC-0011',password:'pass1234',name:'Ramesh Kumar',designation:'Security Officer',shift:'Day',role:'staff',contact:'9876543210',secQuestion:'What is your date of birth? (DD/MM/YYYY)',secAnswer:'01/01/1985',casual:{total:12,used:4},sick:{total:10,used:3},annual:{total:20,used:3}},
+  'SEC-0022': {id:'SEC-0022',username:'SEC-0022',password:'pass1234',name:'Sunita Devi',designation:'Security Inspector',shift:'Evening',role:'staff',contact:'9812345678',secQuestion:'What is your mother\'s maiden name?',secAnswer:'sharma',casual:{total:12,used:6},sick:{total:10,used:1},annual:{total:20,used:8}},
+  'SEC-0033': {id:'SEC-0033',username:'SEC-0033',password:'pass1234',name:'Ajay Verma',designation:'Security Supervisor',shift:'Night',role:'staff',contact:'9988776655',secQuestion:'What is your place of birth?',secAnswer:'lucknow',casual:{total:12,used:2},sick:{total:10,used:0},annual:{total:20,used:6}},
+  'SEC-0044': {id:'SEC-0044',username:'SEC-0044',password:'pass1234',name:'Priya Yadav',designation:'MTS (Security Guard)',shift:'Day',role:'staff',contact:'9765432100',secQuestion:'What is your father\'s name?',secAnswer:'rajesh',casual:{total:12,used:3},sick:{total:10,used:5},annual:{total:20,used:0}},
+  'SEC-0055': {id:'SEC-0055',username:'SEC-0055',password:'pass1234',name:'Irfan Shaikh',designation:'Daily Wager (Security Guard)',shift:'Night',role:'staff',contact:'9654321000',secQuestion:'What is the name of your first school?',secAnswer:'amu school',casual:{total:6,used:1},sick:{total:6,used:0},annual:{total:0,used:0}},
+  'PROCTOR': {id:'PROCTOR',username:'PROCTOR',password:'proctor123',name:'Proctor',designation:'Proctor',shift:'Day',role:'proctor',contact:'',secQuestion:'What is your date of birth? (DD/MM/YYYY)',secAnswer:'01/01/1980',casual:{total:0,used:0},sick:{total:0,used:0},annual:{total:0,used:0}},
+};
+
+let leaves = [
+  {id:1,empId:'SEC-0011',name:'Ramesh Kumar',designation:'Security Officer',shift:'Day',type:'Sick Leave',from:'2026-03-10',to:'2026-03-12',days:3,supervisor:'Vikram Singh',contact:'9876543210',replacement:'Suresh Lal',reason:'Fever and cold',status:'Approved',applied:'2026-03-09'},
+  {id:2,empId:'SEC-0022',name:'Sunita Devi',designation:'Security Inspector',shift:'Evening',type:'Casual Leave',from:'2026-03-18',to:'2026-03-19',days:2,supervisor:'Anand Sharma',contact:'9812345678',replacement:'',reason:'Personal work',status:'Rejected',applied:'2026-03-15'},
+  {id:3,empId:'SEC-0033',name:'Ajay Verma',designation:'Security Supervisor',shift:'Night',type:'Annual Leave',from:'2026-04-05',to:'2026-04-10',days:6,supervisor:'Vikram Singh',contact:'9988776655',replacement:'Mohan Das',reason:'Family function',status:'Pending',applied:'2026-03-28'},
+  {id:4,empId:'SEC-0044',name:'Priya Yadav',designation:'MTS (Security Guard)',shift:'Day',type:'Emergency Leave',from:'2026-04-01',to:'2026-04-02',days:2,supervisor:'Anand Sharma',contact:'9765432100',replacement:'',reason:'Family emergency',status:'Pending',applied:'2026-04-01'},
+  {id:5,empId:'SEC-0055',name:'Irfan Shaikh',designation:'Daily Wager (Security Guard)',shift:'Night',type:'Casual Leave',from:'2026-04-03',to:'2026-04-03',days:1,supervisor:'Vikram Singh',contact:'9654321000',replacement:'',reason:'Personal errand',status:'Pending',applied:'2026-04-02'},
+];
+let nextId = 6;
+let currentUser = null;
+let editingStaffId = null;
+let fpTempId = null;
+
+// ══════ UTILS ══════
+function daysBetween(f,t){return Math.max(1,Math.round((new Date(t)-new Date(f))/864e5)+1);}
+function fmtDate(d){if(!d)return'—';const p=d.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
+function pad(n){return String(n).padStart(4,'0');}
+function initials(name){return name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();}
+function desLabel(d){const i=DESIGNATIONS.indexOf(d);return i>=0?`<span style="color:var(--text3);font-size:11px;margin-right:2px">0${i+1}.</span>${d}`:d;}
+function shiftPill(s){const c={Day:'pill-day',Evening:'pill-eve',Night:'pill-night'}[s]||'pill-day';return `<span class="pill ${c}">${SHIFTS[s]?SHIFTS[s].icon:''} ${s||'—'}</span>`;}
+function statusPill(s){const c={Pending:'pill-pending',Approved:'pill-approved',Rejected:'pill-rejected'}[s]||'pill-pending';return `<span class="pill ${c}">${s}</span>`;}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function showToast(msg,type='success'){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
+function togglePw(id,btn){const el=document.getElementById(id);if(el.type==='password'){el.type='text';btn.textContent='🙈';}else{el.type='password';btn.textContent='👁';}}
+
+// ══════ SCREENS ══════
+function showLogin(){showScreen('screen-login');}
+function showForgot(){fpTempId=null;fpGoStep(1);showScreen('screen-forgot');}
+function showProctor(){document.getElementById('li-id').value='PROCTOR';document.getElementById('li-pw').value='proctor123';showToast('Proctor credentials pre-filled','info');}
+
+// ══════ LOGIN ══════
+function doLogin(){
+  const uid=document.getElementById('li-id').value.trim().toUpperCase();
+  const pw=document.getElementById('li-pw').value;
+  const acc=staffAccounts[uid]||Object.values(staffAccounts).find(a=>a.username.toUpperCase()===uid);
+  if(!acc){showToast('Employee ID not found. Please check and try again.','error');return;}
+  if(acc.password!==pw){showToast('Incorrect password. Please try again.','error');return;}
+  currentUser=acc;
+  if(acc.role==='proctor'){
+    document.getElementById('admin-user-label').textContent='Proctor: '+acc.name;
+    showScreen('screen-admin');
+    renderAdminAll();
+  } else {
+    setupAppUI();
+    showScreen('screen-app');
+    renderDashboard();renderHistory();renderBalance();renderShifts();
+    if(acc.role==='proctor'){renderApprovals();updateAppBadge();}
+  }
+}
+
+function setupAppUI(){
+  const u=currentUser;
+  const init=initials(u.name);
+  document.getElementById('hdr-avatar').textContent=init;
+  document.getElementById('hdr-name').textContent=u.name;
+  document.getElementById('sb-avatar').textContent=init;
+  document.getElementById('sb-name').textContent=u.name;
+  document.getElementById('sb-role').textContent=u.designation;
+  document.getElementById('sb-id').textContent=u.id;
+  // pre-fill apply form
+  document.getElementById('f-name').value=u.name;
+  document.getElementById('f-id').value=u.id;
+  document.getElementById('f-des').value=u.designation;
+  document.getElementById('f-shift-disp').value=(SHIFTS[u.shift]?SHIFTS[u.shift].icon+' '+SHIFTS[u.shift].label+' — '+SHIFTS[u.shift].time:'');
+  // show proctor tab
+  const isProctor=u.role==='proctor';
+  document.getElementById('app-approval-btn').style.display=isProctor?'':'none';
+  document.getElementById('sb-approval-item').style.display=isProctor?'flex':'none';
+}
+
+function doLogout(){currentUser=null;showScreen('screen-login');document.getElementById('li-pw').value='';}
+
+// ══════ FORGOT PASSWORD ══════
+function fpGoStep(n){
+  document.querySelectorAll('.forgot-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('fp-step'+n).classList.add('active');
+  [1,2,3].forEach(i=>{
+    document.getElementById('fp-s'+i).className='step'+(i<n?' done':i===n?' active':'');
+    if(i<3)document.getElementById('fp-l'+i).className='step-line'+(i<n?' done':'');
+  });
+}
+function fpBack(step){fpGoStep(step);}
+function fpStep1(){
+  const id=document.getElementById('fp-id').value.trim().toUpperCase();
+  const acc=staffAccounts[id]||Object.values(staffAccounts).find(a=>a.username.toUpperCase()===id);
+  const hint=document.getElementById('fp-hint1');
+  if(!acc){hint.style.display='block';hint.textContent='⚠ Employee ID not found. Please check and try again.';return;}
+  fpTempId=acc.id;
+  hint.style.display='none';
+  document.getElementById('fp-q-label').textContent=acc.secQuestion;
+  fpGoStep(2);
+}
+function fpStep2(){
+  const ans=document.getElementById('fp-answer').value.trim().toLowerCase();
+  const acc=staffAccounts[fpTempId];
+  if(!acc||ans!==acc.secAnswer.toLowerCase()){showToast('Incorrect answer. Please try again.','error');return;}
+  fpGoStep(3);
+}
+function fpStep3(){
+  const pw1=document.getElementById('fp-pw1').value;
+  const pw2=document.getElementById('fp-pw2').value;
+  if(!pw1||pw1.length<6){showToast('Password must be at least 6 characters.','error');return;}
+  if(pw1!==pw2){showToast('Passwords do not match.','error');return;}
+  staffAccounts[fpTempId].password=pw1;
+  fpGoStep(4);
+}
+
+// ══════ ADMIN ══════
+function adminTab(tab,btn){
+  document.querySelectorAll('.admin-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.admin-nav-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('admin-'+tab).classList.add('active');
+  if(btn)btn.classList.add('active');
+}
+function renderAdminAll(){renderAccountsTable();renderAdminLeaves();renderAdminApprovals();renderAdminShifts();updateAdminBadge();}
+function updateAdminBadge(){const n=leaves.filter(l=>l.status==='Pending').length;document.getElementById('admin-notif').textContent=n;}
+
+function renderAccountsTable(){
+  const el=document.getElementById('accounts-table');
+  const entries=Object.values(staffAccounts).filter(a=>a.role!=='proctor');
+  el.innerHTML=`<table class="data-table"><thead><tr><th>#</th><th>Name</th><th>Employee ID</th><th>Designation</th><th>Shift</th><th>Role</th><th>Username</th><th>Actions</th></tr></thead><tbody>${
+    entries.map((a,i)=>`<tr>
+      <td class="td-muted">${i+1}</td>
+      <td><strong>${a.name}</strong></td>
+      <td class="td-muted">${a.id}</td>
+      <td style="font-size:12.5px">${desLabel(a.designation)}</td>
+      <td>${shiftPill(a.shift)}</td>
+      <td><span class="role-tag ${a.role==='proctor'?'staff':''}">${a.role==='proctor'?'Proctor':'Staff'}</span></td>
+      <td class="td-muted">${a.username}</td>
+      <td><div class="btn-row">
+        <button class="btn btn-warning btn-sm" onclick="editStaff('${a.id}')">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteStaff('${a.id}')">Delete</button>
+      </div></td>
+    </tr>`).join('')
+  }</tbody></table>`;
+}
+
+function editStaff(id){
+  const a=staffAccounts[id];if(!a)return;
+  editingStaffId=id;
+  document.getElementById('add-staff-title').textContent='Edit Staff Account — '+a.name;
+  document.getElementById('as-submit-btn').textContent='Save Changes';
+  document.getElementById('as-name').value=a.name;
+  document.getElementById('as-id').value=a.id;
+  document.getElementById('as-des').value=a.designation;
+  document.getElementById('as-shift').value=a.shift;
+  document.getElementById('as-role').value=a.role;
+  document.getElementById('as-contact').value=a.contact||'';
+  document.getElementById('as-username').value=a.username;
+  document.getElementById('as-pw').value=a.password;
+  document.getElementById('as-sq').value=a.secQuestion||'';
+  document.getElementById('as-sa').value=a.secAnswer||'';
+  document.getElementById('as-cl').value=a.casual.total;
+  document.getElementById('as-sl').value=a.sick.total;
+  document.getElementById('as-al').value=a.annual.total;
+  adminTab('add-staff', document.querySelectorAll('.admin-nav-item')[1]);
+}
+
+function cancelEditStaff(){
+  editingStaffId=null;
+  document.getElementById('add-staff-title').textContent='Add New Staff Account';
+  document.getElementById('as-submit-btn').textContent='Create Account';
+  ['as-name','as-id','as-username','as-pw','as-contact','as-sa'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('as-des').value='';document.getElementById('as-shift').value='';document.getElementById('as-role').value='staff';document.getElementById('as-sq').value='';
+  document.getElementById('as-cl').value=12;document.getElementById('as-sl').value=10;document.getElementById('as-al').value=20;
+  adminTab('accounts',document.querySelectorAll('.admin-nav-item')[0]);
+}
+
+function saveStaff(){
+  const name=document.getElementById('as-name').value.trim();
+  const id=document.getElementById('as-id').value.trim().toUpperCase();
+  const des=document.getElementById('as-des').value;
+  const shift=document.getElementById('as-shift').value;
+  const role=document.getElementById('as-role').value;
+  const username=document.getElementById('as-username').value.trim()||id;
+  const pw=document.getElementById('as-pw').value;
+  const sq=document.getElementById('as-sq').value;
+  const sa=document.getElementById('as-sa').value.trim();
+  const cl=parseInt(document.getElementById('as-cl').value)||12;
+  const sl=parseInt(document.getElementById('as-sl').value)||10;
+  const al=parseInt(document.getElementById('as-al').value)||20;
+  if(!name||!id||!des||!shift||!pw||!sq||!sa){showToast('Please fill all required fields.','error');return;}
+  if(!editingStaffId && staffAccounts[id]){showToast('Employee ID already exists.','error');return;}
+  const existing = editingStaffId ? staffAccounts[editingStaffId] : {casual:{used:0},sick:{used:0},annual:{used:0}};
+  staffAccounts[id]={id,username:username||id,password:pw,name,designation:des,shift,role,contact:document.getElementById('as-contact').value.trim(),secQuestion:sq,secAnswer:sa,casual:{total:cl,used:existing.casual.used},sick:{total:sl,used:existing.sick.used},annual:{total:al,used:existing.annual.used}};
+  if(editingStaffId && editingStaffId!==id){delete staffAccounts[editingStaffId];}
+  showToast(editingStaffId?'Account updated successfully!':'New staff account created!');
+  cancelEditStaff();
+  renderAccountsTable();
+}
+
+function deleteStaff(id){
+  if(!confirm('Delete account for '+staffAccounts[id]?.name+'? This cannot be undone.'))return;
+  delete staffAccounts[id];
+  renderAccountsTable();
+  showToast('Account deleted.','info');
+}
+
+function renderAdminLeaves(){
+  const sf=document.getElementById('al-status')?.value||'all';
+  const shf=document.getElementById('al-shift')?.value||'all';
+  let data=leaves.slice();
+  if(sf!=='all')data=data.filter(l=>l.status===sf);
+  if(shf!=='all')data=data.filter(l=>l.shift===shf);
+  const el=document.getElementById('admin-leaves-table');
+  if(!el)return;
+  if(!data.length){el.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3)">No records found.</div>';return;}
+  el.innerHTML=`<table class="data-table"><thead><tr><th>#</th><th>Employee</th><th>Designation</th><th>Shift</th><th>Type</th><th>From</th><th>To</th><th>Days</th><th>Status</th><th>Slip</th></tr></thead><tbody>${
+    data.map((l,i)=>`<tr><td class="td-muted">${i+1}</td><td>${l.name}<br><span class="td-muted">${l.empId}</span></td><td style="font-size:12.5px">${desLabel(l.designation)}</td><td>${shiftPill(l.shift)}</td><td>${l.type}</td><td>${fmtDate(l.from)}</td><td>${fmtDate(l.to)}</td><td style="text-align:center;font-weight:600">${l.days}</td><td>${statusPill(l.status)}</td><td><button class="btn btn-print" onclick="openSlip(${l.id})">Print</button></td></tr>`).join('')
+  }</tbody></table>`;
+}
+
+function renderAdminApprovals(){
+  const pending=leaves.filter(l=>l.status==='Pending');
+  const el=document.getElementById('admin-approvals-table');
+  if(!el)return;
+  if(!pending.length){el.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3)">✅ No pending applications.</div>';return;}
+  el.innerHTML=`<table class="data-table"><thead><tr><th>#</th><th>Employee</th><th>Designation</th><th>Shift</th><th>Type</th><th>Period</th><th>Days</th><th>Reason</th><th>Action</th></tr></thead><tbody>${
+    pending.map((l,i)=>`<tr><td class="td-muted">${i+1}</td><td>${l.name}<br><span class="td-muted">${l.empId}</span></td><td style="font-size:12.5px">${desLabel(l.designation)}</td><td>${shiftPill(l.shift)}</td><td>${l.type}</td><td style="white-space:nowrap;font-size:12px">${fmtDate(l.from)}<br>→${fmtDate(l.to)}</td><td style="text-align:center;font-weight:600">${l.days}</td><td style="font-size:12px;color:var(--text3);max-width:110px">${l.reason}</td><td><div class="btn-row"><button class="btn btn-success btn-sm" onclick="adminDecide(${l.id},'Approved')">Approve</button><button class="btn btn-danger btn-sm" onclick="adminDecide(${l.id},'Rejected')">Reject</button><button class="btn btn-print btn-sm" onclick="openSlip(${l.id})">Print</button></div></td></tr>`).join('')
+  }</tbody></table>`;
+}
+function adminDecide(id,status){
+  const l=leaves.find(x=>x.id===id);if(l)l.status=status;
+  showToast(`Leave ${status.toLowerCase()} for ${l?.name}.`,status==='Approved'?'success':'error');
+  renderAdminApprovals();renderAdminLeaves();updateAdminBadge();
+}
+
+function renderAdminShifts(){
+  const all=Object.values(staffAccounts).filter(a=>a.role!=='proctor');
+  document.getElementById('asc-day').textContent=all.filter(a=>a.shift==='Day').length;
+  document.getElementById('asc-eve').textContent=all.filter(a=>a.shift==='Evening').length;
+  document.getElementById('asc-night').textContent=all.filter(a=>a.shift==='Night').length;
+  const el=document.getElementById('admin-shift-table');if(!el)return;
+  el.innerHTML=`<table class="data-table"><thead><tr><th>Name</th><th>ID</th><th>Designation</th><th>Shift</th><th>Timing</th></tr></thead><tbody>${
+    all.map(a=>`<tr><td>${a.name}</td><td class="td-muted">${a.id}</td><td style="font-size:12.5px">${desLabel(a.designation)}</td><td>${shiftPill(a.shift)}</td><td style="font-size:12px;color:var(--text3)">${SHIFTS[a.shift]?.time||'—'}</td></tr>`).join('')
+  }</tbody></table>`;
+}
+
+// ══════ STAFF APP ══════
+function gotoPage(page,topBtn,sideBtn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sub-nav-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  if(topBtn)topBtn.classList.add('active');
+  else document.querySelectorAll('.sub-nav-btn').forEach(b=>{if(b.getAttribute('onclick')?.includes("'"+page+"'"))b.classList.add('active');});
+  if(sideBtn)sideBtn.classList.add('active');
+}
+
+function updateAppBadge(){
+  const n=leaves.filter(l=>l.status==='Pending').length;
+  document.getElementById('sb-badge').textContent=n;
+  document.getElementById('app-notif-dot').style.display=n>0?'inline-block':'none';
+}
+
+function calcDays(){
+  const f=document.getElementById('f-from').value,t=document.getElementById('f-to').value;
+  if(f&&t){const d=daysBetween(f,t);document.getElementById('f-days').value=d+' day'+(d>1?'s':'');}
+}
+
+function submitLeave(){
+  const u=currentUser;
+  const type=document.getElementById('f-type').value;
+  const from=document.getElementById('f-from').value;
+  const to=document.getElementById('f-to').value;
+  const sup=document.getElementById('f-sup').value.trim();
+  const reason=document.getElementById('f-reason').value.trim();
+  if(!type||!from||!to||!sup||!reason){showToast('Please fill all required fields.','error');return;}
+  if(new Date(to)<new Date(from)){showToast('End date must be after start date.','error');return;}
+  leaves.push({id:nextId++,empId:u.id,name:u.name,designation:u.designation,shift:u.shift,type,from,to,days:daysBetween(from,to),supervisor:sup,contact:document.getElementById('f-contact').value.trim(),replacement:document.getElementById('f-replace').value.trim(),reason,status:'Pending',applied:new Date().toISOString().split('T')[0]});
+  showToast('Leave application submitted successfully!');
+  clearApplyForm();
+  renderDashboard();renderHistory();if(u.role==='proctor')renderApprovals();updateAppBadge();
+}
+function clearApplyForm(){
+  ['f-sup','f-contact','f-replace','f-reason','f-from','f-to'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-type').value='';
+  document.getElementById('f-days').value='';
+}
+
+function renderDashboard(){
+  const u=currentUser;if(!u)return;
+  document.getElementById('dash-welcome').textContent='Welcome, '+u.name.split(' ')[0]+'!';
+  const myLeaves=leaves.filter(l=>l.empId===u.id);
+  document.getElementById('st-total').textContent=myLeaves.length;
+  document.getElementById('st-pending').textContent=myLeaves.filter(l=>l.status==='Pending').length;
+  document.getElementById('st-approved').textContent=myLeaves.filter(l=>l.status==='Approved').length;
+  document.getElementById('st-rejected').textContent=myLeaves.filter(l=>l.status==='Rejected').length;
+  const recent=myLeaves.slice(-4).reverse();
+  const rEl=document.getElementById('dash-recent');
+  if(!recent.length){rEl.innerHTML='<div style="color:var(--text3);font-size:13px;padding:.5rem 0">No leave applications yet.</div>';} 
+  else rEl.innerHTML=`<table class="data-table"><thead><tr><th>Type</th><th>Date</th><th>Status</th></tr></thead><tbody>${recent.map(l=>`<tr><td>${l.type}</td><td style="font-size:12px">${fmtDate(l.from)}</td><td>${statusPill(l.status)}</td></tr>`).join('')}</tbody></table>`;
+  const acc=staffAccounts[u.id];
+  if(acc)document.getElementById('dash-balance').innerHTML=`<div class="balance-grid">${balItem('Casual',acc.casual)}${balItem('Sick',acc.sick)}${balItem('Annual',acc.annual)}</div>`;
+}
+
+function renderHistory(){
+  const u=currentUser;if(!u)return;
+  const sf=document.getElementById('hf-status')?.value||'all';
+  const tf=document.getElementById('hf-type')?.value||'all';
+  let data=leaves.filter(l=>l.empId===u.id);
+  if(sf!=='all')data=data.filter(l=>l.status===sf);
+  if(tf!=='all')data=data.filter(l=>l.type===tf);
+  const el=document.getElementById('history-table');if(!el)return;
+  if(!data.length){el.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3)">No leave records found.</div>';return;}
+  el.innerHTML=`<table class="data-table"><thead><tr><th>#</th><th>Type</th><th>From</th><th>To</th><th>Days</th><th>Supervisor</th><th>Status</th><th>Slip</th></tr></thead><tbody>${
+    data.map((l,i)=>`<tr><td class="td-muted">${i+1}</td><td>${l.type}</td><td>${fmtDate(l.from)}</td><td>${fmtDate(l.to)}</td><td style="text-align:center;font-weight:600">${l.days}</td><td style="font-size:12px;color:var(--text3)">${l.supervisor}</td><td>${statusPill(l.status)}</td><td><button class="btn btn-print" onclick="openSlip(${l.id})">Print</button></td></tr>`).join('')
+  }</tbody></table>`;
+}
+
+function renderApprovals(){
+  const pending=leaves.filter(l=>l.status==='Pending');
+  const el=document.getElementById('approvals-table');if(!el)return;
+  if(!pending.length){el.innerHTML='<div style="text-align:center;padding:2rem;color:var(--text3)">✅ No pending applications.</div>';return;}
+  el.innerHTML=`<table class="data-table"><thead><tr><th>#</th><th>Employee</th><th>Shift</th><th>Type</th><th>Period</th><th>Days</th><th>Reason</th><th>Action</th></tr></thead><tbody>${
+    pending.map((l,i)=>`<tr><td class="td-muted">${i+1}</td><td>${l.name}<br><span class="td-muted">${l.empId}</span></td><td>${shiftPill(l.shift)}</td><td>${l.type}</td><td style="white-space:nowrap;font-size:12px">${fmtDate(l.from)}<br>→${fmtDate(l.to)}</td><td style="text-align:center;font-weight:600">${l.days}</td><td style="font-size:12px;color:var(--text3);max-width:110px">${l.reason}</td><td><div class="btn-row"><button class="btn btn-success btn-sm" onclick="appDecide(${l.id},'Approved')">Approve</button><button class="btn btn-danger btn-sm" onclick="appDecide(${l.id},'Rejected')">Reject</button><button class="btn btn-print btn-sm" onclick="openSlip(${l.id})">Print</button></div></td></tr>`).join('')
+  }</tbody></table>`;
+}
+function appDecide(id,status){
+  const l=leaves.find(x=>x.id===id);if(l)l.status=status;
+  showToast(`Leave ${status.toLowerCase()} for ${l?.name}.`,status==='Approved'?'success':'error');
+  renderApprovals();renderDashboard();renderHistory();updateAppBadge();
+}
+
+function renderBalance(){
+  const u=currentUser;if(!u)return;
+  const acc=staffAccounts[u.id];
+  const el=document.getElementById('balance-content');if(!el)return;
+  if(!acc){el.innerHTML='<div style="color:var(--text3);padding:1rem">No balance data found.</div>';return;}
+  el.innerHTML=`<div class="card"><div style="display:flex;align-items:center;gap:.9rem;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)">
+    <div style="width:44px;height:44px;border-radius:50%;background:var(--navy-dark);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;color:#fff">${initials(u.name)}</div>
+    <div><div style="font-weight:700;font-size:15px;color:var(--navy-dark)">${u.name}</div><div style="font-size:12px;color:var(--text3);margin-top:2px">${u.id} • ${desLabel(u.designation)} • ${shiftPill(u.shift)}</div></div>
+  </div><div class="balance-grid">${balItem('Casual Leave',acc.casual)}${balItem('Sick Leave',acc.sick)}${balItem('Annual Leave',acc.annual)}</div></div>`;
+}
+
+function balItem(type,b){
+  const pct=b.total>0?Math.round(b.used/b.total*100):0;
+  return `<div class="bal-item"><div class="bal-type">${type}</div><div class="bal-remaining">${b.total-b.used}</div><div style="font-size:11px;color:var(--text3);margin-top:1px">days remaining</div><div class="bal-bar"><div class="bal-fill" style="width:${pct}%"></div></div><div class="bal-meta"><span>${b.used} used</span><span>${b.total} total</span></div></div>`;
+}
+
+function renderShifts(){
+  const all=Object.values(staffAccounts).filter(a=>a.role!=='proctor');
+  document.getElementById('sc-day').textContent=all.filter(a=>a.shift==='Day').length;
+  document.getElementById('sc-eve').textContent=all.filter(a=>a.shift==='Evening').length;
+  document.getElementById('sc-night').textContent=all.filter(a=>a.shift==='Night').length;
+  const el=document.getElementById('shift-table');if(!el)return;
+  el.innerHTML=`<table class="data-table"><thead><tr><th>Name</th><th>ID</th><th>Designation</th><th>Shift</th><th>Timing</th></tr></thead><tbody>${
+    all.map(a=>`<tr><td>${a.name}</td><td class="td-muted">${a.id}</td><td style="font-size:12.5px">${desLabel(a.designation)}</td><td>${shiftPill(a.shift)}</td><td style="font-size:12px;color:var(--text3)">${SHIFTS[a.shift]?.time||'—'}</td></tr>`).join('')
+  }</tbody></table>`;
+}
+
+function changePassword(){
+  const u=currentUser;
+  const old=document.getElementById('cp-old').value;
+  const n1=document.getElementById('cp-new1').value;
+  const n2=document.getElementById('cp-new2').value;
+  if(!old||!n1||!n2){showToast('Please fill all fields.','error');return;}
+  if(staffAccounts[u.id].password!==old){showToast('Current password is incorrect.','error');return;}
+  if(n1.length<6){showToast('New password must be at least 6 characters.','error');return;}
+  if(n1!==n2){showToast('New passwords do not match.','error');return;}
+  staffAccounts[u.id].password=n1;
+  document.getElementById('cp-old').value='';document.getElementById('cp-new1').value='';document.getElementById('cp-new2').value='';
+  showToast('Password changed successfully!');
+}
+
+// ══════ PRINT SLIP ══════
+function openSlip(id){
+  const l=leaves.find(x=>x.id===id);if(!l)return;
+  const s=SHIFTS[l.shift]||SHIFTS.Day;
+  const sc={Day:{c:'#1e40af',bg:'#eff6ff'},Evening:{c:'#92400e',bg:'#fff7ed'},Night:{c:'#4c1d95',bg:'#f5f3ff'}};
+  const scc=sc[l.shift]||sc.Day;
+  const di=DESIGNATIONS.indexOf(l.designation);
+  const dLabel=di>=0?`0${di+1}. ${l.designation}`:l.designation;
+  document.getElementById('slip-ref-no').textContent='Ref: LVE-'+pad(l.id);
+  document.getElementById('slip-ref-date').textContent='Applied: '+fmtDate(l.applied);
+  document.getElementById('slip-status-pill').innerHTML=statusPill(l.status);
+  document.getElementById('slip-body').innerHTML=`
+    <div class="slip-sec"><div class="slip-sec-title">Employee Details</div>
+      <div class="slip-grid2">
+        <div class="slip-field"><span class="slip-lbl">Full Name</span><span class="slip-val">${l.name}</span></div>
+        <div class="slip-field"><span class="slip-lbl">Employee ID</span><span class="slip-val">${l.empId}</span></div>
+        <div class="slip-field"><span class="slip-lbl">Designation</span><span class="slip-val">${dLabel}</span></div>
+        <div class="slip-field"><span class="slip-lbl">Supervisor</span><span class="slip-val">${l.supervisor}</span></div>
+        ${l.contact?`<div class="slip-field"><span class="slip-lbl">Contact No.</span><span class="slip-val">${l.contact}</span></div>`:''}
+        ${l.replacement?`<div class="slip-field"><span class="slip-lbl">Replacement</span><span class="slip-val">${l.replacement}</span></div>`:''}
+      </div>
+    </div>
+    <div class="slip-sec"><div class="slip-sec-title">Assigned Shift</div>
+      <div style="display:inline-flex;align-items:center;gap:.6rem;padding:.5rem .9rem;border-radius:6px;background:${scc.bg};color:${scc.c};font-size:13px;font-weight:600">${s.icon} &nbsp;${s.label} — ${s.time}</div>
+    </div>
+    <div class="slip-sec"><div class="slip-sec-title">Leave Details</div>
+      <div class="slip-grid2">
+        <div class="slip-field"><span class="slip-lbl">Leave Type</span><span class="slip-val">${l.type}</span></div>
+        <div class="slip-field"><span class="slip-lbl">Total Days</span><span class="slip-val">${l.days} Day${l.days>1?'s':''}</span></div>
+        <div class="slip-field"><span class="slip-lbl">From Date</span><span class="slip-val">${fmtDate(l.from)}</span></div>
+        <div class="slip-field"><span class="slip-lbl">To Date</span><span class="slip-val">${fmtDate(l.to)}</span></div>
+      </div>
+      <div style="margin-top:.5rem"><span class="slip-lbl">Reason for Leave</span><div class="slip-reason-box">${l.reason}</div></div>
+    </div>
+    <div class="slip-sec"><div class="slip-sec-title">Authorisation</div>
+      <div class="sig-row">
+        <div class="sig-box">Signature of the<br>Employee<br><span style="font-size:8.5px;opacity:.7">(Applicant)</span></div>
+        <div class="sig-box">Duty Writer<br><span style="font-size:8.5px;opacity:.7">Signature</span></div>
+        <div class="sig-box">Shift In-charge<br><span style="font-size:8.5px;opacity:.7">Signature</span></div>
+        <div class="sig-box">Security Officer<br><span style="font-size:8.5px;opacity:.7">Signature</span></div>
+        <div class="sig-box">Watch &amp; Ward In-charge /<br>Proctor<br><span style="font-size:8.5px;opacity:.7">Signature &amp; Stamp</span></div>
+      </div>
+    </div>`;
+  document.getElementById('overlay').classList.add('show');
+}
+function closeOverlay(){document.getElementById('overlay').classList.remove('show');}
+function closeSlipOutside(e){if(e.target.id==='overlay')closeOverlay();}
+</script>
+</body>
+</html>
