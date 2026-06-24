@@ -1015,7 +1015,7 @@ function renderDashboard(){
   if(!recent.length){rEl.innerHTML='<div style="color:var(--text3);font-size:13px;padding:.5rem 0">No leave applications yet.</div>';} 
   else rEl.innerHTML=`<table class="data-table"><thead><tr><th>Type</th><th>Date</th><th>Status</th></tr></thead><tbody>${recent.map(l=>`<tr><td>${l.type}</td><td style="font-size:12px">${fmtDate(l.from)}</td><td>${statusPill(l.status)}</td></tr>`).join('')}</tbody></table>`;
   const acc=staffAccounts[u.id];
-  if(acc)document.getElementById('dash-balance').innerHTML=`<div class="balance-grid">${balItem('compensatory',acc.compensatory)}${balItem('Leave Without Pay',acc.leave without pay)}${balItem('Annual',acc.annual)}</div>`;
+  if(acc)document.getElementById('dash-balance').innerHTML=`<div class="balance-grid">${balItem('compensatory',acc.compensatory)}${balItem('Leave Without Pay',acc.sick)}${balItem('Annual',acc.annual)}</div>`;
 }
 
 function renderHistory(){
