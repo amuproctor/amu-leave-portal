@@ -463,9 +463,8 @@ table.data-table tbody td{padding:11px 12px;color:var(--text);vertical-align:mid
           <div class="form-section">
             <div class="form-section-title">Leave Entitlements</div>
             <div class="form-grid-3">
-              <div class="form-group"><label class="flabel">Casual Leave (days)</label><input class="finput-sm" type="number" id="as-cl" value="12" min="0"></div>
-              <div class="form-group"><label class="flabel">Sick Leave (days)</label><input class="finput-sm" type="number" id="as-sl" value="10" min="0"></div>
-              <div class="form-group"><label class="flabel">Annual Leave (days)</label><input class="finput-sm" type="number" id="as-al" value="20" min="0"></div>
+              <div class="form-group"><label class="flabel">compensatory Leave (days)</label><input class="finput-sm" type="number" id="as-cl" value="12" min="0"></div>
+            
             </div>
           </div>
           <div class="btn-row" style="justify-content:flex-end;padding-top:.5rem;border-top:1px solid var(--border)">
@@ -497,9 +496,9 @@ table.data-table tbody td{padding:11px 12px;color:var(--text);vertical-align:mid
       <div class="admin-section" id="admin-shifts">
         <div class="admin-section-title">Shift Information</div>
         <div class="shift-cards">
-          <div class="shift-card day"><div class="sc-icon">☀</div><div class="sc-name">Day Shift</div><div class="sc-time">08:00 AM – 04:00 PM</div><div class="sc-count" id="asc-day">0</div></div>
-          <div class="shift-card eve"><div class="sc-icon">🌆</div><div class="sc-name">Evening Shift</div><div class="sc-time">04:00 PM – 12:00 MN</div><div class="sc-count" id="asc-eve">0</div></div>
-          <div class="shift-card night"><div class="sc-icon">🌙</div><div class="sc-name">Night Shift</div><div class="sc-time">12:00 MN – 08:00 AM</div><div class="sc-count" id="asc-night">0</div></div>
+          <div class="shift-card day"><div class="sc-icon"></div><div class="sc-name">Day Shift</div><div class="sc-time">08:00 AM – 04:00 PM</div><div class="sc-count" id="asc-day">0</div></div>
+          <div class="shift-card eve"><div class="sc-icon"></div><div class="sc-name">Evening Shift</div><div class="sc-time">04:00 PM – 12:00 MN</div><div class="sc-count" id="asc-eve">0</div></div>
+          <div class="shift-card night"><div class="sc-icon"></div><div class="sc-name">Night Shift</div><div class="sc-time">12:00 MN – 08:00 AM</div><div class="sc-count" id="asc-night">0</div></div>
         </div>
         <div class="card" style="padding:0"><div class="table-wrap" id="admin-shift-table"></div></div>
       </div>
@@ -602,7 +601,7 @@ table.data-table tbody td{padding:11px 12px;color:var(--text);vertical-align:mid
             <div class="form-grid-3">
               <div class="form-group">
                 <label class="flabel">Leave Type <span class="req">*</span></label>
-                <select class="fselect" id="f-type"><option value="">— Select —</option><option>Casual Leave</option><option>Sick Leave</option><option>Annual Leave</option><option>Emergency Leave</option><option>Compensatory Off</option></select>
+                <select class="fselect" id="f-type"><option value="">— Select —</option><option>Compensatory Leave</option><option>Leave Without Pay</option><option>
               </div>
               <div class="form-group"><label class="flabel">From Date <span class="req">*</span></label><input class="finput-sm" type="date" id="f-from" oninput="calcDays()"></div>
               <div class="form-group"><label class="flabel">To Date <span class="req">*</span></label><input class="finput-sm" type="date" id="f-to" oninput="calcDays()"></div>
@@ -628,7 +627,7 @@ table.data-table tbody td{padding:11px 12px;color:var(--text);vertical-align:mid
           <label>Status:</label>
           <select class="filt-sel" id="hf-status" onchange="renderHistory()"><option value="all">All</option><option>Pending</option><option>Approved</option><option>Rejected</option></select>
           <label>Type:</label>
-          <select class="filt-sel" id="hf-type" onchange="renderHistory()"><option value="all">All Types</option><option>Casual Leave</option><option>Sick Leave</option><option>Annual Leave</option><option>Emergency Leave</option><option>Compensatory Off</option></select>
+          <select class="filt-sel" id="hf-type" onchange="renderHistory()"><option value="all">All Types</option><option>Compensatory Leave</option><option> Leave Without Pay </option><option>
         </div>
         <div class="card" style="padding:0"><div class="table-wrap" id="history-table"></div></div>
       </div>
@@ -717,20 +716,20 @@ const DESIGNATIONS=['Security Officer','Security Inspector','Security Supervisor
 
 // Staff accounts (username -> account object)
 let staffAccounts = {
-  'SEC-0011': {id:'SEC-0011',username:'SEC-0011',password:'pass1234',name:'Ramesh Kumar',designation:'Security Officer',shift:'Day',role:'staff',contact:'9876543210',secQuestion:'What is your date of birth? (DD/MM/YYYY)',secAnswer:'01/01/1985',casual:{total:12,used:4},sick:{total:10,used:3},annual:{total:20,used:3}},
-  'SEC-0022': {id:'SEC-0022',username:'SEC-0022',password:'pass1234',name:'Sunita Devi',designation:'Security Inspector',shift:'Evening',role:'staff',contact:'9812345678',secQuestion:'What is your mother\'s maiden name?',secAnswer:'sharma',casual:{total:12,used:6},sick:{total:10,used:1},annual:{total:20,used:8}},
-  'SEC-0033': {id:'SEC-0033',username:'SEC-0033',password:'pass1234',name:'Ajay Verma',designation:'Security Supervisor',shift:'Night',role:'staff',contact:'9988776655',secQuestion:'What is your place of birth?',secAnswer:'lucknow',casual:{total:12,used:2},sick:{total:10,used:0},annual:{total:20,used:6}},
-  'SEC-0044': {id:'SEC-0044',username:'SEC-0044',password:'pass1234',name:'Priya Yadav',designation:'MTS (Security Guard)',shift:'Day',role:'staff',contact:'9765432100',secQuestion:'What is your father\'s name?',secAnswer:'rajesh',casual:{total:12,used:3},sick:{total:10,used:5},annual:{total:20,used:0}},
-  'SEC-0055': {id:'SEC-0055',username:'SEC-0055',password:'pass1234',name:'Irfan Shaikh',designation:'Daily Wager (Security Guard)',shift:'Night',role:'staff',contact:'9654321000',secQuestion:'What is the name of your first school?',secAnswer:'amu school',casual:{total:6,used:1},sick:{total:6,used:0},annual:{total:0,used:0}},
-  'PROCTOR': {id:'PROCTOR',username:'PROCTOR',password:'proctor123',name:'Proctor',designation:'Proctor',shift:'Day',role:'proctor',contact:'',secQuestion:'What is your date of birth? (DD/MM/YYYY)',secAnswer:'01/01/1980',casual:{total:0,used:0},sick:{total:0,used:0},annual:{total:0,used:0}},
+  'SEC-0011': {id:'SEC-0011',username:'SEC-0011',password:'pass1234',name:'Ramesh Kumar',designation:'Security Officer',shift:'Day',role:'staff',contact:'9876543210',secQuestion:'What is your date of birth? (DD/MM/YYYY)',secAnswer:'01/01/1985',compensatory:{total:12,used:4},annual:{total:12,used:4}},
+  'SEC-0022': {id:'SEC-0022',username:'SEC-0022',password:'pass1234',name:'Sunita Devi',designation:'Security Inspector',shift:'Evening',role:'staff',contact:'9812345678',secQuestion:'What is your mother\'s maiden name?',secAnswer:'sharma',compensatory:{total:12,used:6},annual:{total:12,used:6}},
+  'SEC-0033': {id:'SEC-0033',username:'SEC-0033',password:'pass1234',name:'Ajay Verma',designation:'Security Supervisor',shift:'Night',role:'staff',contact:'9988776655',secQuestion:'What is your place of birth?',secAnswer:'lucknow',compensatory:{total:12,used:2},annual:{total:12,used:2}},
+  'SEC-0044': {id:'SEC-0044',username:'SEC-0044',password:'pass1234',name:'Priya Yadav',designation:'MTS (Security Guard)',shift:'Day',role:'staff',contact:'9765432100',secQuestion:'What is your father\'s name?',secAnswer:'rajesh',compensatory:{total:12,used:3},annual:{total:12,used:03}},
+  'SEC-0055': {id:'SEC-0055',username:'SEC-0055',password:'pass1234',name:'Irfan Shaikh',designation:'Daily Wager (Security Guard)',shift:'Night',role:'staff',contact:'9654321000',secQuestion:'What is the name of your first school?',secAnswer:'amu school',compensatory:{total:6,used:1},annual:{total:0,used:0}},
+  'PROCTOR': {id:'PROCTOR',username:'PROCTOR',password:'proctor123',name:'Proctor',designation:'Proctor',shift:'Day',role:'proctor',contact:'',secQuestion:'What is your date of birth? (DD/MM/YYYY)',secAnswer:'01/01/1980',compensatory:{total:0,used:0},annual:{total:0,used:0}},
 };
 
 let leaves = [
-  {id:1,empId:'SEC-0011',name:'Ramesh Kumar',designation:'Security Officer',shift:'Day',type:'Sick Leave',from:'2026-03-10',to:'2026-03-12',days:3,supervisor:'Vikram Singh',contact:'9876543210',replacement:'Suresh Lal',reason:'Fever and cold',status:'Approved',applied:'2026-03-09'},
-  {id:2,empId:'SEC-0022',name:'Sunita Devi',designation:'Security Inspector',shift:'Evening',type:'Casual Leave',from:'2026-03-18',to:'2026-03-19',days:2,supervisor:'Anand Sharma',contact:'9812345678',replacement:'',reason:'Personal work',status:'Rejected',applied:'2026-03-15'},
+  {id:1,empId:'SEC-0011',name:'Ramesh Kumar',designation:'Security Officer',shift:'Day',type:'Compensatory Leave',from:'2026-03-10',to:'2026-03-12',days:3,supervisor:'Vikram Singh',contact:'9876543210',replacement:'Suresh Lal',reason:'Fever and cold',status:'Approved',applied:'2026-03-09'},
+  {id:2,empId:'SEC-0022',name:'Sunita Devi',designation:'Security Inspector',shift:'Evening',type:'Compensatory Leave',from:'2026-03-18',to:'2026-03-19',days:2,supervisor:'Anand Sharma',contact:'9812345678',replacement:'',reason:'Personal work',status:'Rejected',applied:'2026-03-15'},
   {id:3,empId:'SEC-0033',name:'Ajay Verma',designation:'Security Supervisor',shift:'Night',type:'Annual Leave',from:'2026-04-05',to:'2026-04-10',days:6,supervisor:'Vikram Singh',contact:'9988776655',replacement:'Mohan Das',reason:'Family function',status:'Pending',applied:'2026-03-28'},
-  {id:4,empId:'SEC-0044',name:'Priya Yadav',designation:'MTS (Security Guard)',shift:'Day',type:'Emergency Leave',from:'2026-04-01',to:'2026-04-02',days:2,supervisor:'Anand Sharma',contact:'9765432100',replacement:'',reason:'Family emergency',status:'Pending',applied:'2026-04-01'},
-  {id:5,empId:'SEC-0055',name:'Irfan Shaikh',designation:'Daily Wager (Security Guard)',shift:'Night',type:'Casual Leave',from:'2026-04-03',to:'2026-04-03',days:1,supervisor:'Vikram Singh',contact:'9654321000',replacement:'',reason:'Personal errand',status:'Pending',applied:'2026-04-02'},
+  {id:4,empId:'SEC-0044',name:'Priya Yadav',designation:'MTS (Security Guard)',shift:'Day',type:'Leave Without Pay',from:'2026-04-01',to:'2026-04-02',days:2,supervisor:'Anand Sharma',contact:'9765432100',replacement:'',reason:'Family emergency',status:'Pending',applied:'2026-04-01'},
+  {id:5,empId:'SEC-0055',name:'Irfan Shaikh',designation:'Daily Wager (Security Guard)',shift:'Night',type:'compensatory',from:'2026-04-03',to:'2026-04-03',days:1,supervisor:'Vikram Singh',contact:'9654321000',replacement:'',reason:'Personal errand',status:'Pending',applied:'2026-04-02'},
 ];
 let nextId = 6;
 let currentUser = null;
@@ -747,7 +746,7 @@ function shiftPill(s){const c={Day:'pill-day',Evening:'pill-eve',Night:'pill-nig
 function statusPill(s){const c={Pending:'pill-pending',Approved:'pill-approved',Rejected:'pill-rejected'}[s]||'pill-pending';return `<span class="pill ${c}">${s}</span>`;}
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 function showToast(msg,type='success'){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
-function togglePw(id,btn){const el=document.getElementById(id);if(el.type==='password'){el.type='text';btn.textContent='🙈';}else{el.type='password';btn.textContent='👁';}}
+function togglePw(id,btn){const el=document.getElementById(id);if(el.type==='password'){el.type='text';btn.textContent='';}else{el.type='password';btn.textContent='👁';}}
 
 // ══════ SCREENS ══════
 function showLogin(){showScreen('screen-login');}
@@ -876,8 +875,7 @@ function editStaff(id){
   document.getElementById('as-pw').value=a.password;
   document.getElementById('as-sq').value=a.secQuestion||'';
   document.getElementById('as-sa').value=a.secAnswer||'';
-  document.getElementById('as-cl').value=a.casual.total;
-  document.getElementById('as-sl').value=a.sick.total;
+  document.getElementById('as-cl').value=a.compenstory.total;
   document.getElementById('as-al').value=a.annual.total;
   adminTab('add-staff', document.querySelectorAll('.admin-nav-item')[1]);
 }
@@ -907,8 +905,8 @@ function saveStaff(){
   const al=parseInt(document.getElementById('as-al').value)||20;
   if(!name||!id||!des||!shift||!pw||!sq||!sa){showToast('Please fill all required fields.','error');return;}
   if(!editingStaffId && staffAccounts[id]){showToast('Employee ID already exists.','error');return;}
-  const existing = editingStaffId ? staffAccounts[editingStaffId] : {casual:{used:0},sick:{used:0},annual:{used:0}};
-  staffAccounts[id]={id,username:username||id,password:pw,name,designation:des,shift,role,contact:document.getElementById('as-contact').value.trim(),secQuestion:sq,secAnswer:sa,casual:{total:cl,used:existing.casual.used},sick:{total:sl,used:existing.sick.used},annual:{total:al,used:existing.annual.used}};
+  const existing = editingStaffId ? staffAccounts[editingStaffId] : {compensatory:{used:0},sick:{used:0},annual:{used:0}};
+  staffAccounts[id]={id,username:username||id,password:pw,name,designation:des,shift,role,contact:document.getElementById('as-contact').value.trim(),secQuestion:sq,secAnswer:sa,compensatory:{total:cl,used:existing.compensatory.used},annual:{total:al,used:existing.annual.used}};
   if(editingStaffId && editingStaffId!==id){delete staffAccounts[editingStaffId];}
   showToast(editingStaffId?'Account updated successfully!':'New staff account created!');
   cancelEditStaff();
@@ -1017,7 +1015,7 @@ function renderDashboard(){
   if(!recent.length){rEl.innerHTML='<div style="color:var(--text3);font-size:13px;padding:.5rem 0">No leave applications yet.</div>';} 
   else rEl.innerHTML=`<table class="data-table"><thead><tr><th>Type</th><th>Date</th><th>Status</th></tr></thead><tbody>${recent.map(l=>`<tr><td>${l.type}</td><td style="font-size:12px">${fmtDate(l.from)}</td><td>${statusPill(l.status)}</td></tr>`).join('')}</tbody></table>`;
   const acc=staffAccounts[u.id];
-  if(acc)document.getElementById('dash-balance').innerHTML=`<div class="balance-grid">${balItem('Casual',acc.casual)}${balItem('Sick',acc.sick)}${balItem('Annual',acc.annual)}</div>`;
+  if(acc)document.getElementById('dash-balance').innerHTML=`<div class="balance-grid">${balItem('compensatory',acc.compensatory)}${balItem('Leave Without Pay',acc.leave without pay)}${balItem('Annual',acc.annual)}</div>`;
 }
 
 function renderHistory(){
@@ -1056,7 +1054,7 @@ function renderBalance(){
   el.innerHTML=`<div class="card"><div style="display:flex;align-items:center;gap:.9rem;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)">
     <div style="width:44px;height:44px;border-radius:50%;background:var(--navy-dark);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;color:#fff">${initials(u.name)}</div>
     <div><div style="font-weight:700;font-size:15px;color:var(--navy-dark)">${u.name}</div><div style="font-size:12px;color:var(--text3);margin-top:2px">${u.id} • ${desLabel(u.designation)} • ${shiftPill(u.shift)}</div></div>
-  </div><div class="balance-grid">${balItem('Casual Leave',acc.casual)}${balItem('Sick Leave',acc.sick)}${balItem('Annual Leave',acc.annual)}</div></div>`;
+  </div><div class="balance-grid">${balItem('compensatory Leave',acc.compensatory)}${balItem('Compensatory Leave',acc.sick)}${balItem('Annual Leave',acc.annual)}</div></div>`;
 }
 
 function balItem(type,b){
